@@ -1,0 +1,61 @@
+
+
+Step 1: Gather Your Tools (Imports)
+Before you write any code, you need to import the special tools and toolkits you installed, plus your Cafe blueprint and database from your main file.
+from main import db, app, Cafe
+
+What you do: Tell Python to load Flask-RESTful (to build the API), your database tools, and the Cafe table you already created in main.py.
+
+Step 2: Wake Up the API Manager
+Think of Api(app) as the manager of your building. It helps organize all your web pages and endpoints so they can talk to the internet.
+api = Api(app)
+
+What you do: Connect Flask-RESTful to your Flask app.
+
+Step 3: Write the Security Guard's Rulebook (cafe_args)
+When someone wants to add or update a cafe, they have to fill out a form. You need a security guard to check if they filled it out correctly.
+cafe_args = reqparse.RequestParser()
+
+
+What you do: Use a RequestParser to list every single piece of information you need (like the cafe's name, location, whether it has WiFi, or how much coffee costs) and set rules for what must not be blank.
+
+Step 4: Pack the Lunchbox (cafe_fields)
+When someone asks your API for information, you don't want to send a messy computer file. You want to wrap it up neatly as a clean JSON package.
+
+What you do: Create a dictionary that matches every database column to a clean data type (like text or numbers) so the computer knows how to package it up nicely.
+
+Step 5: Build the Headquarters for All Cafes (Cafes Class)
+This section handles actions that deal with the whole list of cafes at once.
+
+Getting all cafes (get): Ask the database to fetch every single cafe (Cafe.query.all()) and show them all.
+
+Adding a new cafe (post):
+
+Run the security guard check (parse_args()) to make sure all the rules are followed.
+
+Create a new Cafe object with the user's data.
+
+Add it to the database basket (db.session.add) and save it (db.session.commit).
+
+Step 6: Build the House for a Single Cafe (SingleCafe Class)
+Sometimes you don't want the whole list—you just want to look at, change, or delete one specific cafe using its ID number (like cafe #1 or cafe #5).
+
+Finding one cafe (get): Search for the cafe by its ID. If it isn't there, automatically throw a 404 Not Found error.
+
+Updating a cafe (put): Find the cafe by its ID, run the security check for new info, overwrite the old details with the new ones, and save it.
+
+Deleting a cafe (delete): Find the cafe by its ID, remove it from the database forever, and save the changes.
+
+Step 7: Give Your API Street Addresses (api.add_resource)
+An API needs map coordinates so people know where to send requests.
+
+What you do:
+
+Link the Cafes class to the address /api/cafes/.
+
+Link the SingleCafe class to the address /api/cafes/<int:cafe_id>/ so you can target a specific cafe number.
+
+Step 8: Turn on the Machine!
+Every great app needs an ON switch.
+
+What you do: Write the final check to start up your local web server so you can test it in Postman or your browser!
